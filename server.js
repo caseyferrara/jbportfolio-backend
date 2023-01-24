@@ -19,9 +19,10 @@ const app = express();
 const { insertProject, updateProject, insertAboutImage, getUsers, getProjects, getAbout, deleteProject, deleteAboutImage, getProjectById, getAboutById } = require('./src/database/db')
 
 app.use(cors({
-  origin: '*',
+  origin: ['https://jbportfolio.vercel.app'],
   credentials: true
 }));
+
 app.use('/images', express.static('./src/Images'));
 app.use(express.json());
 
