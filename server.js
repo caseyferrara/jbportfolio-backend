@@ -133,9 +133,9 @@ app.get('/callback', (req, res) => {
       const token = jwt.sign({ email: req.user.email, name: req.user.name }, secret, { expiresIn });
 
       if (req.user && isAllowedEmail(req.user.email)) {
-          res.redirect(`http://localhost:3000/admin?token=${token}`);
+          res.redirect(`https://jbportfolio.vercel.app/admin?token=${token}`);
         } else {
-          res.redirect(`http://localhost:3000/admin`);
+          res.redirect(`https://jbportfolio.vercel.app/admin`);
           res.status(401).send('You are not authorized to access this page');
         }
     });
