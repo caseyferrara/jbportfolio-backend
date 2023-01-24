@@ -16,7 +16,7 @@ const auth0ClientSecret = process.env.CLIENT_SECRET;
 
 const app = express();
 
-const { insertProject, updateProject, insertAboutImage, getUsers, getProjects, getAbout, deleteProject, deleteAboutImage, getProjectById, getAboutById } = require('./src/Database/db');
+const { insertProject, updateProject, insertAboutImage, getUsers, getProjects, getAbout, deleteProject, deleteAboutImage, getProjectById, getAboutById } = require('./src/database/db')
 
 app.use(cors({
   origin: '*',
