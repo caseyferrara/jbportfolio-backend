@@ -92,7 +92,7 @@ app.get('/callback', (req, res) => {
   const code = req.query.code;
   const clientId = auth0ClientId;
   const clientSecret = auth0ClientSecret;
-  const redirectUri = 'http://localhost:3001/callback';
+  const redirectUri = 'https://secret-beyond-29351.herokuapp.com/callback';
 
   // Exchange the authorization code for an access token
   request.post({
