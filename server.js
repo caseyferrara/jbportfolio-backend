@@ -20,7 +20,6 @@ const { insertProject, updateProject, insertAboutImage, getUsers, getProjects, g
 
 app.use(cors());
 
-
 app.use('/images', express.static('./src/Images'));
 app.use(express.json());
 
@@ -64,14 +63,14 @@ app.post('/email', (req, res) => {
 
   transporter.sendMail(mailOptions,function(err,result){
     if(err){
-    res.send({
-    message:err
-    })
+      res.send({
+      message:err
+      })
     }else{
-    transport.close();
-    res.send({
-    message:'Email has been sent: check your inbox!'
-    })
+      transport.close();
+      res.send({
+      message:'Email has been sent: check your inbox!'
+      })
     }
     })
 })
