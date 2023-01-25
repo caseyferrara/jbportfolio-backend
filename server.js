@@ -51,7 +51,7 @@ const transporter = nodemailer.createTransport({
 });
 
 
-app.post('/email', (req, res) => {
+app.post('/email', cors(), (req, res) => {
 
   const { name, email, message } = req.body;
 
