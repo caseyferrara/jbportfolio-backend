@@ -24,6 +24,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 app.post('/email', (req, res) => {
 
+  res.header("Access-Control-Allow-Credentials", true);
+
+
   const { name, email, message } = req.body;
 
   const msg = {
