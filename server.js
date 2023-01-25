@@ -27,30 +27,6 @@ app.use(express.json());
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-app.post('/email', (req, res) => {
-
-  res.header("Access-Control-Allow-Credentials", true);
-
-
-  const { name, email, message } = req.body;
-
-  const msg = {
-    to: 'wayouthereblog@gmail.com',
-    from: 'casey.ferrara@outlook.com',
-    subject: `New message from ${name}`,
-    text: `${message} ${email}`,
-    html: `<strong>${message}</strong>`
-  }
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log('Email sent')
-    })
-    .catch((error) => {
-      console.error(error)
-    })
-})
-
 async function isAllowedEmail(email) {
   try {
     const users = await getUsers(); // call the getUsers function and wait for the response
@@ -322,6 +298,26 @@ app.delete('/admin/about/:id', async (req, res) => {
   }
 });
 
+app.post('/email', (req, res) => {
+
+  const { name, email, message } = req.body;
+
+  const msg = {
+    to: 'wayouthereblog@gmail.com',
+    from: 'casey.ferrara@outlook.com',
+    subject: `New message from ${name}`,
+    text: `${message} ${email}`,
+    html: `<strong>${message}</strong>`
+  }
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent')
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+})
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Server listening on port ${port}`));
