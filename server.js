@@ -301,6 +301,7 @@ app.delete('/admin/about/:id', async (req, res) => {
 app.post('/email', (req, res) => {
 
   const { name, email, message } = req.body;
+  console.log(req);
 
   const msg = {
     to: 'wayouthereblog@gmail.com',
