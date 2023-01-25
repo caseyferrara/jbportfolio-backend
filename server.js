@@ -1,8 +1,3 @@
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://jbportfolio.vercel.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 const multer = require('multer');
 const express = require('express');
 const request = require('request');
@@ -23,10 +18,7 @@ const app = express();
 
 const { insertProject, updateProject, insertAboutImage, getUsers, getProjects, getAbout, deleteProject, deleteAboutImage, getProjectById, getAboutById } = require('./src/database/db')
 
-// app.use(cors({
-//   origin: ['https://jbportfolio.vercel.app'],
-//   credentials: true
-// }));
+app.use(cors());
 
 
 app.use('/images', express.static('./src/Images'));
