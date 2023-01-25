@@ -4,9 +4,7 @@ const cors = require('cors');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
+const sgMail = require('@sendgrid/mail')
 
 require('dotenv').config();
 const auth0ClientId = process.env.AUTH_CLIENT_ID;
@@ -22,56 +20,26 @@ app.use(cors());
 app.use('/images', express.static('./src/Images'));
 app.use(express.json());
 
-const oauth2Client = new OAuth2(
-  process.env.GMAIL_CLIENT_ID,
-  process.env.GMAIL_CLIENT_SECRET,
-  "https://developers.google.com/oauthplayground"
-);
-
-oauth2Client.setCredentials({
-  refresh_token: process.env.REFRESH_TOKEN
-});
-
-const myAccessToken = oauth2Client.getAccessToken()
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    type: "OAuth2",
-    user: process.env.EMAIL,
-    clientId: process.env.GMAIL_CLIENT_ID,
-    clientSecret: process.env.GMAIL_CLIENT_SECRET,
-    refreshToken: process.env.REFRESH_TOKEN,
-    accessToken: myAccessToken
-  }
-});
-
-
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 app.post('/email', (req, res) => {
 
   const { name, email, message } = req.body;
 
-  // setup email data with unicode symbols
-  const mailOptions={
-    from: `"${name}" <${email}>`, // sender address
-    to: 'jillian22brown@gmail.com', // list of receivers
-    subject: 'New message from contact form', // Subject line
-    text: message, // plain text body
-    html: `<b>${message}</b>` // html body
-  };
-
-  transporter.sendMail(mailOptions,function(err,result){
-    if(err){
-      res.send({
-      message:err
-      })
-    }else{
-      transport.close();
-      res.send({
-      message:'Email has been sent: check your inbox!'
-      })
-    }
+  const msg = {
+    to: 'wayouthereblog@gmail.com',
+    from: 'casey.ferrara@outlook.com',
+    subject: `New message from ${name}`,
+    text: `${message} ${email}`,
+    html: `<strong>${message}</strong>`
+  }
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent')
+    })
+    .catch((error) => {
+      console.error(error)
     })
 })
 
