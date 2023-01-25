@@ -46,8 +46,6 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-console.log(refreshToken);
-console.log(accessToken);
 
 
 app.post('/email', (req, res) => {
