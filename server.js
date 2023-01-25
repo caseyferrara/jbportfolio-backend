@@ -18,10 +18,17 @@ const app = express();
 
 const { insertProject, updateProject, insertAboutImage, getUsers, getProjects, getAbout, deleteProject, deleteAboutImage, getProjectById, getAboutById } = require('./src/database/db')
 
-app.use(cors({
-  origin: ['https://jbportfolio.vercel.app'],
-  credentials: true
-}));
+// app.use(cors({
+//   origin: ['https://jbportfolio.vercel.app'],
+//   credentials: true
+// }));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://jbportfolio.vercel.app");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 app.use('/images', express.static('./src/Images'));
 app.use(express.json());
@@ -51,7 +58,7 @@ const transporter = nodemailer.createTransport({
 });
 
 
-app.post('/email', cors(), (req, res) => {
+app.post('/email', (req, res) => {
 
   const { name, email, message } = req.body;
 
