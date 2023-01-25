@@ -301,7 +301,6 @@ app.delete('/admin/about/:id', async (req, res) => {
 app.post('/email', (req, res) => {
 
   const { name, email, message } = req.body;
-  console.log(req);
 
   const msg = {
     to: 'wayouthereblog@gmail.com',
@@ -310,20 +309,19 @@ app.post('/email', (req, res) => {
     text: `${message} ${email}`,
     html: `<strong>${message}</strong>`
   }
-  
-    try {
-      sgMail
-      .send(msg)
+
+  try {
+      sgMail.send(msg)
       .then(() => {
         console.log('Email sent')
       })    
   
       res.sendStatus(200);
   
-    } catch (err) {
-      console.error(err);
-      res.sendStatus(500);
-    }
+      } catch (err) {
+        console.error(err);
+        res.sendStatus(500);
+      }
 })
 
 const port = process.env.PORT || 3001;
