@@ -1,3 +1,8 @@
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://jbportfolio.vercel.app");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 const multer = require('multer');
 const express = require('express');
 const request = require('request');
@@ -22,12 +27,6 @@ const { insertProject, updateProject, insertAboutImage, getUsers, getProjects, g
 //   origin: ['https://jbportfolio.vercel.app'],
 //   credentials: true
 // }));
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://jbportfolio.vercel.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 
 app.use('/images', express.static('./src/Images'));
