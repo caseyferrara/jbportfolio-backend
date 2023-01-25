@@ -1,4 +1,3 @@
-const multer = require('multer');
 const express = require('express');
 const request = require('request');
 const cors = require('cors');
@@ -139,6 +138,8 @@ app.get('/callback', (req, res) => {
     });
   });
 });
+
+const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
