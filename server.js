@@ -310,14 +310,20 @@ app.post('/email', (req, res) => {
     text: `${message} ${email}`,
     html: `<strong>${message}</strong>`
   }
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log('Email sent')
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+  
+    try {
+      sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent')
+      })    
+  
+      res.sendStatus(200);
+  
+    } catch (err) {
+      console.error(err);
+      res.sendStatus(500);
+    }
 })
 
 const port = process.env.PORT || 3001;
